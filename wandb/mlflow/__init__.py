@@ -4,7 +4,7 @@ import os
 import traceback
 import time
 import sys
-
+from itertools import chain
 # TODO: this is LAME
 RUNS = {}
 LOG_FLUSH_MINIMUM = 5
@@ -137,7 +137,7 @@ def patch():
         for metric in metrics:
             metrics, step = _fix_step(run_id, {metric.key: metric.value}, metric.step, metric.timestamp)
             run.history.add(metrics, step=step)
-        for conf in (params + tags):
+        for conf in chain(params, tags):
             run.config[conf.key] = conf.value
     MlflowClient.log_batch = log_batch
 
