@@ -780,11 +780,12 @@ def sweep(
             click.style("wandb agent %s" % sweep_path, fg="yellow")
         )
     )
+    
     if controller:
         wandb.termlog("Starting wandb controller...")
         tuner = wandb_controller.controller(sweep_id)
         tuner.run(verbose=verbose)
-
+    os.system("wandb agent %s" % sweep_path)
 
 @cli.command(context_settings=CONTEXT, help="Run the W&B agent")
 @click.pass_context
